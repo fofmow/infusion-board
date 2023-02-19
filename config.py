@@ -4,30 +4,34 @@ from pathlib import Path
 
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.types import WebAppInfo
 from loguru import logger
 
 from storage.executor import DataBaseExecutor
 
 BOT_TOKEN = environ.get("BOT_TOKEN")
 
+WEB_APP_URL = environ.get("WEB_APP_URL")
+
+HR_TG_ACCOUNT_URL = environ.get("HR_TG_ACCOUNT_URL")
+
+HR_TG_ID = int(environ.get("HR_TG_ID"))
+
+DEFAULT_ACTIVATION_WORD = environ.get("DEFAULT_ACTIVATION_WORD")
+
 bot = Bot(token=BOT_TOKEN, parse_mode="HTML")
 dp = Dispatcher(bot=bot, storage=MemoryStorage())
 
 db = DataBaseExecutor()
 
-WEB_APP_URL = environ.get("WEB_APP_URL")
-
-SUPPORT_TG_ACCOUNT_URL = environ.get("SUPPORT_TG_ACCOUNT_URL")
-
-MODERATORS_TG_IDS = eval(environ.get("MODERATORS_TG_IDS"))
-
-DEFAULT_ACTIVATION_WORD = "ПОРТАЛ АГРЕГАЦИИ"
+web_app = WebAppInfo(url=WEB_APP_URL)
 
 
 @dataclass(frozen=True, slots=True)
 class BotPath:
     ROOT_DIR = Path(__file__).resolve().parent
     STORAGE_DIR = ROOT_DIR / "storage"
+    STATIC_DIR = ROOT_DIR / "static"
     SETTINGS_JSON = STORAGE_DIR / "auth.json"
 
 

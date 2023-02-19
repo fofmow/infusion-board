@@ -1,27 +1,29 @@
-from aiogram.dispatcher import FSMContext
-from aiogram.types import Message, ContentType
+import asyncio
 
-from buttons import get_web_app_button, support_contact_button
-from config import dp, bot, db, DEFAULT_ACTIVATION_WORD
+from aiogram.dispatcher import FSMContext
+from aiogram.types import Message, ContentType, InputFile
+from aiogram.utils.markdown import hspoiler
+
+from buttons import web_app_button, hr_contact_button
+from config import dp, bot, db, DEFAULT_ACTIVATION_WORD, HR_TG_ID, BotPath
 from states.user import UserAuth
 from tools.json_executor import json_settings
-from tools.misc import register_new_user
+from tools.misc import register_new_user, send_message_from_bot
 
 
 @dp.message_handler(commands=["start"])
 async def send_auth_request(message: Message):
     if await db.get_user_by_tg_id(message.from_user.id):
         return await message.answer(
-            f"Доброго дня, {message.from_user.full_name}. "
-            f"Основные команды уже закреплены в чате. "
-            f"Для перехода к обучению нажмите кнопку ниже",
-            reply_markup=await get_web_app_button()
+            f"<b>Доброго дня, {message.from_user.full_name}  ✨\n\n"
+            f"Чтобы начать познание корпоративной культуры, нажмите кнопку ниже 👇🏻</b>",
+            reply_markup=web_app_button
         )
-
+    
     await message.answer(
-        "<b>Привет, прекрасный новичок из Росмолодежи ⭐️</b>\n"
-        "Для использования бота введи кодовое слово из письма, "
-        "полученного от HR"
+        "<b>Привет, прекрасный новичок Росмолодежи ⭐️</b>\n"
+        "Для использования бота введи кодовое слово из "
+        "письма, полученного от HR"
     )
     await UserAuth.input_code_word.set()
 
@@ -36,28 +38,42 @@ async def check_received_code_word(message: Message, state: FSMContext):
     activation_word = await json_settings.get_start_code_word()
     if message.text.lower() in [activation_word.lower(), DEFAULT_ACTIVATION_WORD]:
         await state.finish()
-        await register_new_user(message.from_user)
+        new_user = await register_new_user(message.from_user)
+        # await send_message_from_bot(HR_TG_ID, f"{str(new_user)} успешно авторизовался в боте ✔️")
         greeting = await message.answer(
-            "Успешная авторизация! В ближайшее время Вас ждёт... Начинаем погружение 🚀\n\n"
-            "Нажмите зеленую кнопку в левом нижнем углу экрана.\n\n"
-            "А эти команды помогут будут помогать на протяжении всего обучения\n"
-            "/contacts - Важные контакты для связи\n"
-            "/command2 - ...\n"
-            "/command3 - ...\n",
-            reply_markup=await get_web_app_button()
+            "<b>Успешная авторизация. Уже совсем скоро мы:\n"
+            "• Познакомимся с ценностями и миссией Росмолодежи\n"
+            "• Сформируем видение задач и направлений деятельности\n"
+            "• Погрузимся в корпоративную культуру\n\n"
+            "А еще, мы подготовили для Вас интерактивное приложение в Телеграм. "
+            "Да, именно здесь будет происходить всё самое главное и интересное. "
+            "Ничего не нужно дополнительно скачивать или устанавливать. На всём пути Вас "
+            "будет сопровождать Мол, его фотография немного ниже! Нажмите кнопку ниже и мы... "
+            "стартуем  🚀</b>",
+            reply_markup=web_app_button
+        )
+        await asyncio.sleep(5)
+        await message.answer_photo(InputFile(path_or_bytesio=BotPath.STATIC_DIR / "hero.jpg"))
+        await message.answer(
+            "<b>А эти команды помогут будут помогать на протяжении всего обучения\n"
+            "/contacts - важные контакты для связи\n"
+            "/resources - источники знаний, комьюнити\n"
+            "/journal - внутренняя жизнь, наш блог\n"
+            "/documents - основные документы и шаблоны</b>\n",
+            reply_markup=web_app_button
         )
         return await bot.pin_chat_message(message.chat.id, greeting.message_id)
-
+    
     return await message.answer(
-        "Хмм... Кажется, кодовое слово введено неверно. "
-        "Попробуйте еще раз"
+        "Хмм... Кажется, кодовое слово введено неверно 🤔\n"
+        f"{hspoiler('Попробуйте еще раз')}"
     )
 
 
 @dp.message_handler(commands=["contacts"])
 async def show_contacts(message: Message):
     await message.answer(
-        "8-999-888-77-77 - Горячая линия\n"
-        "8-999-555-33-33 - Отдел тех. поддержки",
-        reply_markup=support_contact_button
+        "<code>8-999-888-77-77</code> - <b>Рабочий номер телефона HR</b>\n\n"
+        "<code>8-999-555-33-33</code> - <b>Отдел технической поддержки</b>",
+        reply_markup=hr_contact_button
     )

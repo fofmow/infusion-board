@@ -1,0 +1,115 @@
+.user {
+  padding: 0 0 100px;
+
+  &__user-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  &__progress-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0 auto 16px;
+    border-bottom: 1px solid var(--greyE8);
+    padding: 0 16px 24px;
+  }
+
+  &__progress-text {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__progress-title {
+    font-size: 16px;
+    color: var(--greyB0);
+  }
+
+  &__progress-descr {
+    font-size: 16px;
+  }
+
+  &__awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding: 0 16px;
+
+    &-title {
+      padding: 0 16px;
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 178px;
+      width: calc(33%);
+
+      &-descr {
+        font-size: 16px;
+        line-height: 22px;
+        color: var(--purple);
+      }
+    }
+  }
+
+  &__quest {
+    display: flex;
+    margin: 0 16px;
+    border: 1px solid var(--purple);
+    border-radius: 24px;
+
+    &-text {
+      padding: 18px;
+      width: 60%;
+    }
+
+    &-title {
+      margin-bottom: 24px;
+      font-size: 24px;
+    }
+
+    &-descr {
+      margin-bottom: 24px;
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    &-btn {
+      border: 1px solid var(--purple);
+      border-radius: 24px;
+      padding: 12px 18px;
+      font-size: 18px;
+      color: var(--purple);
+      background-color: transparent;
+    }
+
+    &-img-box {
+      position: relative;
+      width: 40%;
+    }
+
+    &-img1 {
+      position: absolute;
+      bottom: 0;
+      right: 60px;
+    }
+
+    &-img2 {
+      position: absolute;
+      bottom: 0;
+      right: 10px;
+    }
+
+    &-img3 {
+      position: absolute;
+      bottom: 0;
+      right: 10px;
+    }
+  }
+}

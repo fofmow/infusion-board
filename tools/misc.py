@@ -8,8 +8,8 @@ from storage.models import User
 from storage.settings import MOSCOW_TZ
 
 
-async def register_new_user(from_user: AiogramUser):
-    await db.create_new_instance(
+async def register_new_user(from_user: AiogramUser) -> User:
+    return await db.create_new_instance(
         model=User,
         data={
             "tg_id": from_user.id,
@@ -22,7 +22,7 @@ async def register_new_user(from_user: AiogramUser):
 
 async def send_message_from_bot(tg_id: int, text: str, markup=None):
     """ Отправка сообщений от бота с корректной обработкой ошибок """
-
+    
     try:
         await bot.send_message(tg_id, text=text, reply_markup=markup)
     except ChatNotFound:

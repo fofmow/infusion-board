@@ -1,0 +1,39 @@
+.menu {
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background-color: var(--white);
+  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.06);
+
+  &__list {
+    z-index: 100;
+    position: relative;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 16px 32px;
+    max-width: 360px;
+  }
+
+  &__btn {
+    border: none;
+    padding: 0;
+    width: 26px;
+    height: 26px;
+    color: var(--greyBD);
+    background-color: transparent;
+
+    &-img {
+      width: 26px;
+      height: 26px;
+    }
+
+    &-active {
+      color: var(--purple);
+    }
+  }
+}

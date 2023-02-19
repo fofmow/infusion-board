@@ -1,0 +1,31 @@
+.blog {
+  padding: 0 0 100px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 16px;
+  }
+}
+
+
+
+.item {
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  &__text-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__date {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(-grey82);
+  }
+}
