@@ -32,3 +32,5 @@
 - [Designer](https://t.me/Nikky3004) (Вероника Шудина)
 - [Designer](https://t.me/Ekaterinaovm) (Екатерина Михайлова)
 
+[ПРЕЗЕНТАЦИЯ ПРОЕКТА](https://github.com/fofmow/infusion-board/blob/master/static/HaHaTown.pdf)
+
