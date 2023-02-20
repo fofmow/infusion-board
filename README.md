@@ -17,7 +17,7 @@
    * `HR_TG_ID`=Телеграм ID HR
    * `HR_TG_ACCOUNT_URL`=ссылка на Телеграм аккаунт HR
    * `DEFAULT_ACTIVATION_WORD`=кодовое слово для авторизации по умолчанию
-7. Создайте файл `auth.json` c содержанием: `{"start_code_word": "<auth_word>"}`
+7. Создайте файл `auth.json` в директории `storage` c содержанием: `{"start_code_word": "<auth_word>"}`
 8. Запустите файл main.py в интерпретаторе Python.
 
 
