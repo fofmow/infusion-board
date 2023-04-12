@@ -34,3 +34,4 @@
 
 [ПРЕЗЕНТАЦИЯ ПРОЕКТА](https://github.com/fofmow/infusion-board/blob/master/static/HaHaTown.pdf)
 
+[ПРЕЗЕНТАЦИЯ на Behance](https://www.behance.net/gallery/167591761/Web-App-dlja-onbordinga)
